@@ -1,4 +1,5 @@
-select title, name as category_name,count(rental_id) as rental_count
+select title as film_title, name as category_name , (date(return_date)-date(rental_date)) as rental_duration,
+ntile(100) over (PARTITION by name)
 
 from
 
@@ -10,7 +11,7 @@ join category c
 on c.category_id=fc.category_id) t1
 
 join
-(select f.film_id,re.rental_id 
+(select f.film_id,re.rental_id , re.rental_date, re.return_date
 from film f
 join inventory iy
 on f.film_id=iy.film_id
@@ -19,4 +20,4 @@ on re.inventory_id=iy.inventory_id) t2
 
 on t1.film_id=t2.film_id
 
-group by t1.title , t1.name
+where name in ('Animation','Children','Classics','Comedy','Family','Music')
