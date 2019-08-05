@@ -1,7 +1,4 @@
-#This is a sample submission for the posted project
-
-
-select title as film_title, name as category_name,count(rental_id) as rental_count
+select title, name as category_name,count(rental_id) as rental_count
 
 from
 
@@ -23,7 +20,3 @@ on re.inventory_id=iy.inventory_id) t2
 on t1.film_id=t2.film_id
 
 group by t1.title , t1.name
-
-
-
-
