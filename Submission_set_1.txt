@@ -1,1 +1,24 @@
 #This is a sample submission for the posted project
+
+
+select title, name,count(rental_id) as C_rental
+from
+
+(select f.film_id,f.title, c.name
+from film f
+join film_category fc 
+on f.film_id=fc.film_id
+join category c
+on c.category_id=fc.category_id) t1
+
+join
+(select f.film_id,re.rental_id 
+from film f
+join inventory iy
+on f.film_id=iy.film_id
+join rental re
+on re.inventory_id=iy.inventory_id) t2
+
+on t1.film_id=t2.film_id
+
+group by t1.title , t1.name
