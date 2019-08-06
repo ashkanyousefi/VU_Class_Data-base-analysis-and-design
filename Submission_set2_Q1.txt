@@ -1,0 +1,18 @@
+select extract(month from (t1.rental_date)) as Rental_month,extract(year from (t1.rental_date)) as Rental_year,t2.store_id, count(t1.rental_id)
+
+from 
+
+(select r.rental_date,r.staff_id,r.rental_id
+from rental r 
+join staff s
+on r.staff_id=s.staff_id) t1
+
+join 
+
+(select s.store_id,st.manager_staff_id
+from staff s
+join store st 
+on s.staff_id=st.manager_staff_id
+) t2
+on t1.staff_id=t2.manager_staff_id
+group by 1,2,3
