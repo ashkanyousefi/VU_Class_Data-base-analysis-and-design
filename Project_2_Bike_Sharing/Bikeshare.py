@@ -1,1 +1,0 @@
-print('Ashkan jan project')
