@@ -1,0 +1,8 @@
+select ((extract (year from p.payment_date))||'-'||(extract (month from p.payment_date))) as pay_date, (c.first_name || ' ' ||c.last_name) as fullname , 
+count(p.payment_id) as pay_countpermon,sum(p.amount) as pay_amount
+
+from payment p 
+join customer c
+on p.customer_id=c.customer_id
+
+group by 1,2
